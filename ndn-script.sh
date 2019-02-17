@@ -56,7 +56,7 @@ function install() {
 
 sudo add-apt-repository ppa:named-data/ppa -y
 
-sudo apt update && app install -y \
+sudo apt update && sudo apt install -y \
   build-essential \
   git \
   libsqlite3-dev \
@@ -72,26 +72,26 @@ install $cxx_repo $cxx_release_tag $cxx_dir
 sudo ldconfig
 
 # # NFD
-# install $nfd_repo $nfd_release_tag $nfd_dir
+install $nfd_repo $nfd_release_tag $nfd_dir
 
 # # Use initial config file for now
-# cp /usr/local/etc/ndn/nfd.conf.sample /usr/local/etc/ndn/nfd.conf
+cp /usr/local/etc/ndn/nfd.conf.sample /usr/local/etc/ndn/nfd.conf
 
 # # # Create the NFD service
-# sudo cp nfd.service /etc/systemd/system/
-# sudo systemctl start nfd.service
-# sudo systemctl enable nfd.service
+sudo cp nfd.service /etc/systemd/system/
+sudo systemctl start nfd.service
+sudo systemctl enable nfd.service
 
-# # Install ChronoSync
-# install $chronosync_repo $chronosync_release_tag $chronosync_dir
+# Install ChronoSync
+install $chronosync_repo $chronosync_release_tag $chronosync_dir
 
-# # Install PSync
-# install $psync_repo $psync_release_tag $psync_dir
+# Install PSync
+install $psync_repo $psync_release_tag $psync_dir
 
-# # Install NLSR
-# install $nlsr_repo $nlsr_release_tag $nlsr_dir
+# Install NLSR
+install $nlsr_repo $nlsr_release_tag $nlsr_dir
 
-# sudo apt install ndn-tools -y
+sudo apt install ndn-tools -y
 
 
 ## Handy for checking for shared lib remenants from apt

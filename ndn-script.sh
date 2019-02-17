@@ -14,14 +14,28 @@ psync_repo="https://github.com/named-data/PSync.git"
 psync_release_tag="0.1.0"
 psync_dir="psync-0.1.0"
 
+nlsr_repo="https://github.com/named-data/NLSR.git"
+nlsr_release_tag="NLSR-0.4.3"
+nlsr_dir="nlsr-0.4.3"
+
 function install() {
   git_repo=$1
   tag=$2
   release_dir_name=$3
 
-  git clone --depth 1 --branch $tag $git_repo
-  cd $release_dir_name
+  git_command="git clone --depth 1 --branch $tag $git_repo $release_dir_name"
+
   
+  if [ $git_repo == $nfd_repo ]
+  then
+    echo "Updating submodule for " $git_repo
+    git submodule update --init
+    git_command="$git_commandmmand --recursive"
+  fi
+
+  $git_command
+  cd $release_dir_name
+
   ./waf distclean
   echo "Finished cleaning"
 
@@ -35,7 +49,7 @@ function install() {
 }
 
 sudo apt update
-sudo apt install python
+sudo apt install python git
 
 # NDN Cxx
 sudo apt install build-essential libsqlite3-dev libboost-all-dev libssl-dev
@@ -50,12 +64,15 @@ install $nfd_repo $nfd_release_tag $nfd_dir
 sudo cp /usr/local/etc/ndn/nfd.conf.sample /usr/local/etc/ndn/nfd.conf
 
 # # Create the NFD service
-# sudo cp nfd.service /etc/systemd/system/
-# sudo systemctl start nfd.service
-# sudo systemctl enable nfd.service
+sudo cp nfd.service /etc/systemd/system/
+sudo systemctl start nfd.service
+sudo systemctl enable nfd.service
 
 # # Install ChronoSync
 install $chronosync_repo $chronosync_release_tag $chronosync_dir
 
 # # Install PSync
 install $psync_repo $psync_release_tag $psync_dir
+
+# Install NLSR
+install $nlsr_repo $nlsr_release_tag $nlsr_dir

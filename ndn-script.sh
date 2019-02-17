@@ -1,46 +1,53 @@
-cxx_release="https://github.com/named-data/ndn-cxx/archive/ndn-cxx-0.6.5.tar.gz"
-cxx_file_name="ndn-cxx-0.6.5.tar.gz"
-cxx_dir="ndn-cxx-0.6.5"
+cxx_repo="https://github.com/named-data/ndn-cxx.git"
+cxx_release_tag="ndn-cxx-0.6.5"
+cxx_dir="ndn-cxx"
 
-nfd_release="https://github.com/named-data/NFD/archive/NFD-0.6.5.tar.gz"
-nfd_file_name="NFD-0.6.5.tar.gz"
+nfd_repo="https://github.com/named-data/NFD.git"
+nfd_release_tag="NFD-0.6.5"
 nfd_dir="nfd-0.6.5"
 
-chronosync_release="https://github.com/named-data/ChronoSync/archive/0.5.2.tar.gz"
-chronosync_filename="chronosync-0.5.2.tar.gz"
+chronosync_repo="https://github.com/named-data/ChronoSync.git"
+chronosync_release_tag="0.5.2"
 chronosync_dir="chronosync-0.5.2"
 
-psync_release="https://github.com/named-data/PSync/archive/0.1.0.tar.gz"
-psync_filename="psync-0.1.0.tar.gz"
+psync_repo="https://github.com/named-data/PSync.git"
+psync_release_tag="0.1.0"
 psync_dir="psync-0.1.0"
 
 function install() {
-  release=$1
-  release_file_name=$2
+  git_repo=$1
+  tag=$2
   release_dir_name=$3
-  wget $release -O $release_file_name
-  mkdir -p $release_dir_name && tar -zxvf $release_file_name -C $release_dir_name --strip-components 1
+
+  git clone --depth 1 --branch $tag $git_repo
   cd $release_dir_name
+  
   ./waf distclean
+  echo "Finished cleaning"
+
   ./waf configure
   echo "Finished configuring, compiling"
+
   ./waf -j2
   echo "Finished compiling, installing"
+
   sudo ./waf install
 }
 
+sudo apt update
+sudo apt install python
+
 # NDN Cxx
-# sudo apt install build-essential libsqlite3-dev libboost-all-dev libssl-dev
-# install $cxx_release $cxx_file_name $cxx_dir
-# sudo ldconfig
+sudo apt install build-essential libsqlite3-dev libboost-all-dev libssl-dev
+install $cxx_repo $cxx_release_tag $cxx_dir
+sudo ldconfig
 
 # NFD
-sudo apt-get install build-essential pkg-config libboost-all-dev \
-                     libsqlite3-dev libssl-dev libpcap-dev
-install $nfd_release $nfd_file_name $nfd_dir
+sudo apt-get install pkg-config libpcap-dev
+install $nfd_repo $nfd_release_tag $nfd_dir
 
 # # Use initial config file for now
-# sudo cp /usr/local/etc/ndn/nfd.conf.sample /usr/local/etc/ndn/nfd.conf
+sudo cp /usr/local/etc/ndn/nfd.conf.sample /usr/local/etc/ndn/nfd.conf
 
 # # Create the NFD service
 # sudo cp nfd.service /etc/systemd/system/
@@ -48,7 +55,7 @@ install $nfd_release $nfd_file_name $nfd_dir
 # sudo systemctl enable nfd.service
 
 # # Install ChronoSync
-# install $chronosync_release $chronosync_filename $chronosync_dir
+install $chronosync_repo $chronosync_release_tag $chronosync_dir
 
 # # Install PSync
-# install $psync_release $psync_filename $psync_dir
+install $psync_repo $psync_release_tag $psync_dir

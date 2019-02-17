@@ -35,13 +35,17 @@ function install() {
     echo "Updating submodule for " $git_repo
     git submodule update --init
     git_command="$git_command --recursive"
-  elif [ $git_repo == $nlsr_repo ]
-  then
-    git_command="git clone $git_repo $release_dir_name && git checkout $nlsr_hash"
   fi
-
-  $git_command
-  cd $release_dir_name
+  
+  if [ $git_repo == $nlsr_repo ]
+  then
+    git clone $git_repo $release_dir_name
+    cd $release_dir_name
+    git checkout $nlsr_hash
+  else
+    $git_command
+    cd $release_dir_name
+  fi
 
   ./waf distclean
   echo "Finished cleaning"
@@ -57,41 +61,41 @@ function install() {
   cd ../
 }
 
-sudo add-apt-repository ppa:named-data/ppa -y
+# sudo add-apt-repository ppa:named-data/ppa -y
 
-sudo apt update && sudo apt install -y \
-  build-essential \
-  git \
-  libsqlite3-dev \
-  libboost-all-dev \
-  libssl-dev \
-  libpcap-dev \
-  pkg-config \
-  python \
+# sudo apt update && sudo apt install -y \
+#   build-essential \
+#   git \
+#   libsqlite3-dev \
+#   libboost-all-dev \
+#   libssl-dev \
+#   libpcap-dev \
+#   pkg-config \
+#   python \
 
 
-# NDN Cxx
-install $cxx_repo $cxx_release_tag $cxx_dir
-sudo ldconfig
+# # NDN Cxx
+# install $cxx_repo $cxx_release_tag $cxx_dir
+# sudo ldconfig
 
-# NFD
-install $nfd_repo $nfd_release_tag $nfd_dir
+# # NFD
+# install $nfd_repo $nfd_release_tag $nfd_dir
 
-# Use initial config file for now
-cp /usr/local/etc/ndn/nfd.conf.sample /usr/local/etc/ndn/nfd.conf
+# # Use initial config file for now
+# sudo cp /usr/local/etc/ndn/nfd.conf.sample /usr/local/etc/ndn/nfd.conf
 
-# Create the NFD service
-sudo cp nfd.service /etc/systemd/system/
-sudo systemctl start nfd.service
-sudo systemctl enable nfd.service
+# # Create the NFD service
+# sudo cp nfd.service /etc/systemd/system/
+# sudo systemctl start nfd.service
+# sudo systemctl enable nfd.service
 
-# Install ChronoSync
-install $chronosync_repo $chronosync_release_tag $chronosync_dir
+# # Install ChronoSync
+# install $chronosync_repo $chronosync_release_tag $chronosync_dir
 
-# Install PSync
-install $psync_repo $psync_release_tag $psync_dir
+# # Install PSync
+# install $psync_repo $psync_release_tag $psync_dir
 
 # Install NLSR
 install $nlsr_repo $nlsr_release_tag $nlsr_dir
 
-sudo apt install ndn-tools -y
+# sudo apt install ndn-tools -y

@@ -19,6 +19,9 @@ nlsr_release_tag="NLSR-0.4.3"
 nlsr_hash="85998a1dc942974a7d4bf3e9f642c5a22dffb6f8"
 nlsr_dir="nlsr-0.4.3"
 
+# Handy for checking for shared lib remenants from apt
+# ldconfig -p | grep "ndn"
+
 function install() {
   git_repo=$1
   tag=$2
@@ -71,13 +74,13 @@ sudo apt update && sudo apt install -y \
 install $cxx_repo $cxx_release_tag $cxx_dir
 sudo ldconfig
 
-# # NFD
+# NFD
 install $nfd_repo $nfd_release_tag $nfd_dir
 
-# # Use initial config file for now
+# Use initial config file for now
 cp /usr/local/etc/ndn/nfd.conf.sample /usr/local/etc/ndn/nfd.conf
 
-# # # Create the NFD service
+# Create the NFD service
 sudo cp nfd.service /etc/systemd/system/
 sudo systemctl start nfd.service
 sudo systemctl enable nfd.service
@@ -92,7 +95,3 @@ install $psync_repo $psync_release_tag $psync_dir
 install $nlsr_repo $nlsr_release_tag $nlsr_dir
 
 sudo apt install ndn-tools -y
-
-
-## Handy for checking for shared lib remenants from apt
-# ldconfig -p | grep "ndn"

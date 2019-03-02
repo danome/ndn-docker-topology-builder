@@ -1,0 +1,47 @@
+version: '2'
+
+services:
+  A:
+      image: ndn-node
+      environment:
+        - NLSR_CONFIG=$TOPOLOGY_DIR/nodeA-nlsr.conf
+        - JAVA_ARGS="-n nodeA -a -hl"
+      volumes: 
+        - $GAME_JAR_SRC:$GAME_JAR_DEST
+        - $NLSR_CONFIG_SRC:$NLSR_CONFIG_DEST
+      stdin_open: true
+      tty: true
+      networks:
+        ndn:
+          ipv4_address: 172.19.0.10
+  B:
+      image: ndn-node
+      environment:
+        - NLSR_CONFIG=$TOPOLOGY_DIR/nodeB-nlsr.conf
+        - JAVA_ARGS="-n nodeA -a -hl"
+      volumes: 
+        - $GAME_JAR_SRC:$GAME_JAR_DEST
+        - $NLSR_CONFIG_SRC:$NLSR_CONFIG_DEST
+      stdin_open: true
+      tty: true
+      networks:
+        ndn:
+          ipv4_address: 172.19.0.11
+  C:
+    image: ndn-node
+    environment:
+      - NLSR_CONFIG=$TOPOLOGY_DIR/nodeC-nlsr.conf
+      - JAVA_ARGS="-n nodeA -a -hl"
+    volumes: 
+      - $GAME_JAR_SRC:$GAME_JAR_DEST
+      - $NLSR_CONFIG_SRC:$NLSR_CONFIG_DEST
+    stdin_open: true
+    tty: true
+    networks:
+      ndn:
+        ipv4_address: 172.19.0.12
+
+networks:
+  ndn:
+    external:
+      name: ndn

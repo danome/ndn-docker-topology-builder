@@ -4,6 +4,7 @@ ARG VERSION_NFD="NFD-0.6.5"
 ARG VERSION_CHRONO_SYNC="0.5.2"
 ARG VERSION_PSYNC="0.1.0"
 ARG VERSION_NLSR="85998a1dc942974a7d4bf3e9f642c5a22dffb6f8"
+ARG VERSION_NDN_TOOLS="7b9837bbdafbff3575b2fd5cbd5686e0d512832c"
 
 # install tools
 RUN apt update && apt install -y \
@@ -17,7 +18,9 @@ RUN apt update && apt install -y \
   python \
   protobuf-compiler \
   tmux \
-  default-jre
+  default-jre \
+  net-tools \
+  iputils-ping
 
 # install ndn-cxx
 RUN git clone https://github.com/named-data/ndn-cxx.git \
@@ -77,8 +80,7 @@ RUN cp /usr/local/etc/ndn/nfd.conf.sample /usr/local/etc/ndn/nfd.conf \
     && ndnsec-cert-dump -i /`whoami` > default.ndncert \
     && mv default.ndncert /usr/local/etc/ndn/keys/default.ndncert
 
-RUN mkdir /share \
-    && mkdir -p /logs/nlsr
+RUN mkdir -p /var/logs/nlsr
 
 # cleanup
 RUN apt autoremove \
@@ -90,7 +92,5 @@ EXPOSE 6363/udp
 ENV NFD_CONFIG=/usr/local/etc/ndn/nfd.conf
 
 COPY startup.sh /usr/local/bin/startup
-# COPY /home/stefano/projects/ndn-script/nlsr /NLSR
-# COPY /home/stefano/projects/NdnGame /NdnGame
 
-CMD startup && /bin/bash
+CMD startup > startup.log && /bin/bash

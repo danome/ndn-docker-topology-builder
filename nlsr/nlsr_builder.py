@@ -1,13 +1,14 @@
 import os
 from neighbor import Neighbor
 
-logdir = "/logs/nlsr"
+logdir = "/var/logs/nlsr"
 
 gamePrefix = "/com/stefanolupo/ndngame/0"
 nameFormat = "node{nodeId}"
 
 nlsrTemplateFile="./nlsr-template.conf"
-nlsrOutputFormat="topologies/{topologyName}/{name}-nlsr.conf"
+topologyDirFormat="./topologies/{topologyName}"
+nlsrOutputFormat="{name}-nlsr.conf"
 
 neighborFormat = \
 "neighbor  {{\n\
@@ -67,9 +68,13 @@ class NlsrBuilder:
             template = template.replace("<maxFacesPerPrefix>", str(self.maxFacesPerPrefix))
             template = template.replace("<advertising>", advertisements)
         
-        if not os.path.exists(self.topologyName):
-            os.mkdir(self.topologyName)
-        with open(nlsrOutputFormat.format(topologyName=self.topologyName, name=nodeName), 'w+') as outFile:
+        topologyDirName = topologyDirFormat.format(topologyName=self.topologyName)
+        if not os.path.exists(topologyDirName):
+            os.mkdir(topologyDirName)
+        
+        nlsrConfFileName = nlsrOutputFormat.format(topologyName=self.topologyName, name=nodeName)
+        fullFileName = os.path.join(topologyDirName, nlsrConfFileName)
+        with open(fullFileName, 'w+') as outFile:
             outFile.write(template)
 
     def getNlsrFile(self):

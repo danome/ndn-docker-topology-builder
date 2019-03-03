@@ -5,4 +5,4 @@ chronosync-0.5.2
 psync-0.1.0
 nlsr-0.4.3
 
-__pycache__
+./nlsr/__pycache__

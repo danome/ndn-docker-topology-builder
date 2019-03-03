@@ -58,7 +58,10 @@ class NlsrBuilder:
 
         neighbors = buildNeighbors(node)
         nodeName = nameFormat.format(nodeId=node.nodeId)
-        advertisements = buildAdvertisements(nodeName)
+
+        advertisements = ""
+        if node.router is False:
+            advertisements = buildAdvertisements(nodeName)
 
         with open(nlsrTemplateFile) as templateFile:
             template = templateFile.read()

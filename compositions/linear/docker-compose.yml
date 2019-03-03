@@ -5,7 +5,7 @@ services:
       image: ndn-node
       environment:
         - NLSR_CONFIG=$TOPOLOGY_DIR/nodeA-nlsr.conf
-        - JAVA_ARGS="-n nodeA -a -hl"
+        - GAME=$GAME_BASE nodeA
       volumes: 
         - $GAME_JAR_SRC:$GAME_JAR_DEST
         - $NLSR_CONFIG_SRC:$NLSR_CONFIG_DEST
@@ -18,7 +18,7 @@ services:
       image: ndn-node
       environment:
         - NLSR_CONFIG=$TOPOLOGY_DIR/nodeB-nlsr.conf
-        - JAVA_ARGS="-n nodeA -a -hl"
+        - GAME=$GAME_BASE nodeB
       volumes: 
         - $GAME_JAR_SRC:$GAME_JAR_DEST
         - $NLSR_CONFIG_SRC:$NLSR_CONFIG_DEST

@@ -13,10 +13,10 @@ ips = {
     "X": "192.168.1.10"
 }
 
-def buildNode(nodeName):
+def buildNode(nodeName, router=False):
     if nodeName not in ips:
         raise KeyError("{} is not in ips: {}".format(nodeName, ips))
-    return Node(nodeName, ips[nodeName])
+    return Node(nodeName, ips[nodeName], router=router)
 
 def buildLinearTwoTopology():
     print("\n\nBuilding linear-two topology")
@@ -115,9 +115,9 @@ def buildTreeTopology():
     nodeB = buildNode("B")
     nodeC = buildNode("C")
     nodeD = buildNode("D")
-    nodeE = buildNode("E")
-    nodeF = buildNode("F")
-    nodeG = buildNode("G")
+    nodeE = buildNode("E", router=True)
+    nodeF = buildNode("F", router=True)
+    nodeG = buildNode("G", router=True)
 
     # Leaf nodes have a single parent
     nodeA.addNeighbor(Neighbor(nodeE, 10))

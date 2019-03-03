@@ -40,6 +40,19 @@ services:
     networks:
       ndn:
         ipv4_address: 172.19.0.12
+  D:
+    image: ndn-node
+    environment:
+      - NLSR_CONFIG=$TOPOLOGY_DIR/nodeD-nlsr.conf
+      - GAME=$GAME_BASE nodeD
+    volumes: 
+      - $GAME_JAR_SRC:$GAME_JAR_DEST
+      - $NLSR_CONFIG_SRC:$NLSR_CONFIG_DEST
+    stdin_open: true
+    tty: true
+    networks:
+      ndn:
+        ipv4_address: 172.19.0.13
 
 networks:
   ndn:

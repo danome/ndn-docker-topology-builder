@@ -2,21 +2,23 @@ from nlsr_builder import NlsrBuilder
 from node import Node
 from neighbor import Neighbor
 
-ips = {
-    "A": "172.19.0.10",
-    "B": "172.19.0.11",
-    "C": "172.19.0.12",
-    "D": "172.19.0.13",
-    "E": "172.19.0.14",
-    "F": "172.19.0.15",
-    "G": "172.19.0.16",
-    "X": "192.168.1.10"
-}
+# ips = {
+#     "A": "172.19.0.10",
+#     "B": "172.19.0.11",
+#     "C": "172.19.0.12",
+#     "D": "172.19.0.13",
+#     "E": "172.19.0.14",
+#     "F": "172.19.0.15",
+#     "G": "172.19.0.16",
+#     "X": "192.168.1.10"
+# }
+
 
 def buildNode(nodeName, router=False):
-    if nodeName not in ips:
-        raise KeyError("{} is not in ips: {}".format(nodeName, ips))
-    return Node(nodeName, ips[nodeName], router=router)
+    # if nodeName not in ips:
+    #     raise KeyError("{} is not in ips: {}".format(nodeName, ips))
+    hostname = "node" + nodeName.lower() + ".ndngame.com"
+    return Node(nodeName, hostname, router=router)
 
 def buildLinearTwoTopology():
     print("\n\nBuilding linear-two topology")

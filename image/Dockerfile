@@ -6,6 +6,12 @@ ARG VERSION_PSYNC="0.1.0"
 ARG VERSION_NLSR="85998a1dc942974a7d4bf3e9f642c5a22dffb6f8"
 ARG VERSION_NDN_TOOLS="7b9837bbdafbff3575b2fd5cbd5686e0d512832c"
 
+# install ndntools
+RUN apt update && apt install -y \
+software-properties-common -y && \ 
+add-apt-repository ppa:named-data/ppa -y && apt update && \ 
+apt install ndn-tools -y
+
 # install tools
 RUN apt update && apt install -y \
   build-essential \
@@ -20,7 +26,9 @@ RUN apt update && apt install -y \
   tmux \
   default-jre \
   net-tools \
-  iputils-ping
+  iputils-ping \
+  dnsutils
+
 
 # install ndn-cxx
 RUN git clone https://github.com/named-data/ndn-cxx.git \
@@ -92,5 +100,8 @@ EXPOSE 6363/udp
 ENV NFD_CONFIG=/usr/local/etc/ndn/nfd.conf
 
 COPY startup.sh /usr/local/bin/startup
+COPY tmas /usr/local/bin/tmas
+COPY tmls /usr/local/bin/tmls
+COPY node-rewriter.jar /
 
 CMD startup > startup.log && /bin/bash

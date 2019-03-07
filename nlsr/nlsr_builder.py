@@ -27,6 +27,8 @@ advertisementsFormat = [
     "/{name}/blocks/sync",
     "/{name}/blocks/interact",
     "/{name}/status/sync",
+    "/{name}/projectiles/sync",
+    "/{name}/projectiles/interact",
 ]
 
 def buildNeighbor(neighbor):

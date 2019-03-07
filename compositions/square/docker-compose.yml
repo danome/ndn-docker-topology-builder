@@ -1,60 +1,93 @@
-version: '2'
+version: '3.3'
 
 services:
   A:
-      image: ndn-node
-      environment:
-        - NLSR_CONFIG=$TOPOLOGY_DIR/nodeA-nlsr.conf
-        - GAME=$GAME_BASE nodeA
-      volumes: 
-        - $GAME_JAR_SRC:$GAME_JAR_DEST
-        - $NLSR_CONFIG_SRC:$NLSR_CONFIG_DEST
-      stdin_open: true
-      tty: true
-      networks:
-        ndn:
-          ipv4_address: 172.19.0.10
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/topologies/square/nodeA-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a ws -hl -n nodeA
+    volumes:
+      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+      - /home/stefano/projects/ndn-script/nlsr:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodea
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodea.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+    env_file:
+      - ../variables.env
   B:
-      image: ndn-node
-      environment:
-        - NLSR_CONFIG=$TOPOLOGY_DIR/nodeB-nlsr.conf
-        - GAME=$GAME_BASE nodeB
-      volumes: 
-        - $GAME_JAR_SRC:$GAME_JAR_DEST
-        - $NLSR_CONFIG_SRC:$NLSR_CONFIG_DEST
-      stdin_open: true
-      tty: true
-      networks:
-        ndn:
-          ipv4_address: 172.19.0.11
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/topologies/square/nodeB-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a ws -hl -n nodeB
+    volumes:
+      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+      - /home/stefano/projects/ndn-script/nlsr:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeb
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodeb.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+    env_file:
+      - ../variables.env
+
   C:
-    image: ndn-node
+    image: stefanolupo/ndn:ndn-node
     environment:
-      - NLSR_CONFIG=$TOPOLOGY_DIR/nodeC-nlsr.conf
-      - GAME=$GAME_BASE nodeC
-    volumes: 
-      - $GAME_JAR_SRC:$GAME_JAR_DEST
-      - $NLSR_CONFIG_SRC:$NLSR_CONFIG_DEST
+      - NLSR_CONFIG=/NLSR/topologies/square/nodeC-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a ws -hl -n nodeC
+    volumes:
+      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+      - /home/stefano/projects/ndn-script/nlsr:/NLSR
     stdin_open: true
     tty: true
+    hostname: nodec
     networks:
-      ndn:
-        ipv4_address: 172.19.0.12
+      private-ndn-overlay:
+        aliases:
+          - nodec.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+    env_file:
+      - ../variables.env
+
   D:
-    image: ndn-node
+    image: stefanolupo/ndn:ndn-node
     environment:
-      - NLSR_CONFIG=$TOPOLOGY_DIR/nodeD-nlsr.conf
-      - GAME=$GAME_BASE nodeD
-    volumes: 
-      - $GAME_JAR_SRC:$GAME_JAR_DEST
-      - $NLSR_CONFIG_SRC:$NLSR_CONFIG_DEST
+      - NLSR_CONFIG=/NLSR/topologies/square/nodeD-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a ws -hl -n nodeD
+    volumes:
+      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+      - /home/stefano/projects/ndn-script/nlsr:/NLSR
     stdin_open: true
     tty: true
+    hostname: noded
     networks:
-      ndn:
-        ipv4_address: 172.19.0.13
+      private-ndn-overlay:
+        aliases:
+          - noded.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+    env_file:
+      - ../variables.env
 
 networks:
-  ndn:
-    external:
-      name: ndn
+  private-ndn-overlay:
+    driver: overlay

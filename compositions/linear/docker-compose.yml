@@ -2,77 +2,47 @@ version: '3.3'
 
 services:
   A:
-      image: stefanolupo/ndn:ndn-node
-      environment:
-        - NLSR_CONFIG=/NLSR/topologies/linear/nodeA-nlsr.conf
-        - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a -hl -n  nodeA
-      volumes:
-        - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
-        - /home/stefano/projects/ndn-script/nlsr:/NLSR
-      stdin_open: true
-      tty: true
-      hostname: nodea
-      networks:
-        private-ndn-overlay:
-          aliases:
-            - nodea.ndngame.com
-      deploy:
-        mode: replicated
-        replicas: 1
-        endpoint_mode: dnsrr
-      # deploy:
-      #   placement:
-      #     constraints:
-      #       - node.hostname == nodea
-      #   endpoint_mode: dnsrr
-      # ports:
-      #   - target: 6363
-      #     published: 6363
-      #     protocol: tcp
-      #     mode: host
-      #   - target: 6363
-      #     published: 6363
-      #     protocol: udp
-      #     mode: host
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/topologies/linear/nodeA-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a ws -hl -n nodeA
+    volumes:
+      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+      - /home/stefano/projects/ndn-script/nlsr:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodea
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodea.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+    env_file:
+      - ../variables.env
   B:
-      image: stefanolupo/ndn:ndn-node
-      environment:
-        - NLSR_CONFIG=/NLSR/topologies/linear/nodeB-nlsr.conf
-        - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a -hl -n  nodeB
-      volumes:
-        - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
-        - /home/stefano/projects/ndn-script/nlsr:/NLSR
-      stdin_open: true
-      tty: true
-      hostname: nodeb
-      networks:
-        private-ndn-overlay:
-          aliases:
-            - nodeb.ndngame.com
-      deploy:
-        mode: replicated
-        replicas: 1
-        endpoint_mode: dnsrr
-      # deploy:
-      #   placement:
-      #     constraints:
-      #       - node.hostname == nodeb
-      #   endpoint_mode: dnsrr
-          
-      # ports:
-      # - target: 6363
-      #   published: 6363
-      #   protocol: tcp
-      #   mode: host
-      # - target: 6363
-      #   published: 6363
-      #   protocol: udp
-      #   mode: host
-
-# networks:
-#   ndn-overlay:
-#     external:
-#       name: ndn-overlay
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/topologies/linear/nodeB-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a ws -hl -n  nodeB
+    volumes:
+      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+      - /home/stefano/projects/ndn-script/nlsr:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeb
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodeb.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+    env_file:
+      - ../variables.env
 
 networks:
   private-ndn-overlay:

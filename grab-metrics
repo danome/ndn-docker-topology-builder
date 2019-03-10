@@ -1,0 +1,13 @@
+#! /bin/bash
+
+declare -a default_nodenames=("A" "B" "C" "D" "E" "F" "G" "X")
+
+prefix=$1
+outdir=$2
+
+for i in "${default_nodenames[@]}"
+do  
+    container_name=${prefix}_${i}_1:/metrics/.
+    echo $container_name
+    docker cp $container_name $outdir
+done

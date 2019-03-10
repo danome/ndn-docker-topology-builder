@@ -5,7 +5,7 @@ services:
     image: stefanolupo/ndn:ndn-node
     environment:
       - NLSR_CONFIG=/NLSR/topologies/tree/nodeA-nlsr.conf
-      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a ws -hl -n nodeA
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeA
     volumes:
       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
       - /home/stefano/projects/ndn-script/nlsr:/NLSR
@@ -26,7 +26,7 @@ services:
     image: stefanolupo/ndn:ndn-node
     environment:
       - NLSR_CONFIG=/NLSR/topologies/tree/nodeB-nlsr.conf
-      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a ws -hl -n nodeB
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeB
     volumes:
       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
       - /home/stefano/projects/ndn-script/nlsr:/NLSR
@@ -47,7 +47,7 @@ services:
     image: stefanolupo/ndn:ndn-node
     environment:
       - NLSR_CONFIG=/NLSR/topologies/tree/nodeC-nlsr.conf
-      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a ws -hl -n nodeC
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeC
     volumes:
       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
       - /home/stefano/projects/ndn-script/nlsr:/NLSR
@@ -68,7 +68,7 @@ services:
     image: stefanolupo/ndn:ndn-node
     environment:
       - NLSR_CONFIG=/NLSR/topologies/tree/nodeD-nlsr.conf
-      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a ws -hl -n nodeD
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeD
     volumes:
       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
       - /home/stefano/projects/ndn-script/nlsr:/NLSR

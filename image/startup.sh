@@ -14,6 +14,10 @@ tmux send-keys -t "nfd" "nfd" Enter
 # Give NFD and other nodes a second to start
 sleep 20s
 
+echo "Starting ping server"
+tmux new-session -s "ping" -d 
+tmux send-keys -t "ping" "ndnpingserver /com/stefanolupo/ndngame/0/$HOSTNAME" Enter 
+
 echo "Setting strategies"
 nfdc strategy set /com/stefanolupo/ndngame/0/discovery/broadcast /localhost/nfd/strategy/multicast/%FD%03
 

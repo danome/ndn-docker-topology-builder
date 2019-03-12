@@ -6,9 +6,9 @@ services:
     environment:
       - NLSR_CONFIG=/NLSR/topologies/tree/nodeA-nlsr.conf
       - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeA
-    volumes:
-      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
-      - /home/stefano/projects/ndn-script/nlsr:/NLSR
+    # volumes:
+    #   - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+    #   - /home/stefano/projects/ndn-script/nlsr:/NLSR
     stdin_open: true
     tty: true
     hostname: nodea
@@ -27,9 +27,9 @@ services:
     environment:
       - NLSR_CONFIG=/NLSR/topologies/tree/nodeB-nlsr.conf
       - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeB
-    volumes:
-      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
-      - /home/stefano/projects/ndn-script/nlsr:/NLSR
+    # volumes:
+    #   - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+    #   - /home/stefano/projects/ndn-script/nlsr:/NLSR
     stdin_open: true
     tty: true
     hostname: nodeb
@@ -48,9 +48,9 @@ services:
     environment:
       - NLSR_CONFIG=/NLSR/topologies/tree/nodeC-nlsr.conf
       - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeC
-    volumes:
-      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
-      - /home/stefano/projects/ndn-script/nlsr:/NLSR
+    # volumes:
+    #   - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+    #   - /home/stefano/projects/ndn-script/nlsr:/NLSR
     stdin_open: true
     tty: true
     hostname: nodec
@@ -69,9 +69,9 @@ services:
     environment:
       - NLSR_CONFIG=/NLSR/topologies/tree/nodeD-nlsr.conf
       - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeD
-    volumes:
-      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
-      - /home/stefano/projects/ndn-script/nlsr:/NLSR
+    # volumes:
+    #   - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+    #   - /home/stefano/projects/ndn-script/nlsr:/NLSR
     stdin_open: true
     tty: true
     hostname: noded
@@ -91,9 +91,9 @@ services:
     image: stefanolupo/ndn:ndn-node
     environment:
       - NLSR_CONFIG=/NLSR/topologies/tree/nodeE-nlsr.conf
-    volumes:
-      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
-      - /home/stefano/projects/ndn-script/nlsr:/NLSR
+    # volumes:
+    #   - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+    #   - /home/stefano/projects/ndn-script/nlsr:/NLSR
     stdin_open: true
     tty: true
     hostname: nodee
@@ -111,9 +111,9 @@ services:
     image: stefanolupo/ndn:ndn-node
     environment:
       - NLSR_CONFIG=/NLSR/topologies/tree/nodeF-nlsr.conf
-    volumes:
-      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
-      - /home/stefano/projects/ndn-script/nlsr:/NLSR
+    # volumes:
+    #   - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+    #   - /home/stefano/projects/ndn-script/nlsr:/NLSR
     stdin_open: true
     tty: true
     hostname: nodef
@@ -134,9 +134,9 @@ services:
     image: stefanolupo/ndn:ndn-node
     environment:
       - NLSR_CONFIG=/NLSR/topologies/tree/nodeG-nlsr.conf
-    volumes:
-      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
-      - /home/stefano/projects/ndn-script/nlsr:/NLSR
+    # volumes:
+    #   - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+    #   - /home/stefano/projects/ndn-script/nlsr:/NLSR
     stdin_open: true
     tty: true
     hostname: nodeg

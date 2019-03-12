@@ -12,7 +12,7 @@ tmux new-session -s "nfd" -d
 tmux send-keys -t "nfd" "nfd" Enter
 
 # Give NFD and other nodes a second to start
-sleep 60s
+sleep 20s
 
 echo "Starting ping server"
 tmux new-session -s "ping" -d 

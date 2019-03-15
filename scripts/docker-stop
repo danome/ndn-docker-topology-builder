@@ -1,0 +1,6 @@
+#! /bin/bash
+
+for i in $(docker container ls -q); do
+    docker exec -i $i bash < ./kill-tmux.sh
+    docker cp ~/projects/ndn-script/image/startup.sh $i:/usr/local/bin/startup
+done

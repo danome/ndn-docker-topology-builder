@@ -19,7 +19,7 @@ neighborFormat = \
 
 
 advertisementsFormat = [
-    "/{name}/ping"
+    "/{name}/ping",
     "/discovery/broadcast",
     "/discovery/{name}",
     "/config/broadcast",

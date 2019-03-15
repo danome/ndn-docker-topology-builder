@@ -11,7 +11,7 @@ services:
     #   - /home/stefano/projects/ndn-script/nlsr:/NLSR
     stdin_open: true
     tty: true
-    hostname: nodea
+    hostname: nodeA
     networks:
       private-ndn-overlay:
         aliases:
@@ -32,7 +32,7 @@ services:
     #   - /home/stefano/projects/ndn-script/nlsr:/NLSR
     stdin_open: true
     tty: true
-    hostname: nodeb
+    hostname: nodeB
     networks:
       private-ndn-overlay:
         aliases:
@@ -53,7 +53,7 @@ services:
     #   - /home/stefano/projects/ndn-script/nlsr:/NLSR
     stdin_open: true
     tty: true
-    hostname: nodec
+    hostname: nodeC
     networks:
       private-ndn-overlay:
         aliases:

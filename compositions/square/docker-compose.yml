@@ -6,12 +6,12 @@ services:
     environment:
       - NLSR_CONFIG=/NLSR/topologies/square/nodeA-nlsr.conf
       - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeA
-    # volumes:
-    #   - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
-    #   - /home/stefano/projects/ndn-script/nlsr:/NLSR
+    volumes:
+      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+      - /home/stefano/projects/ndn-script/nlsr:/NLSR
     stdin_open: true
     tty: true
-    hostname: nodea
+    hostname: nodeA
     networks:
       private-ndn-overlay:
         aliases:
@@ -27,12 +27,12 @@ services:
     environment:
       - NLSR_CONFIG=/NLSR/topologies/square/nodeB-nlsr.conf
       - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeB
-    # volumes:
-    #   - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
-    #   - /home/stefano/projects/ndn-script/nlsr:/NLSR
+    volumes:
+      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+      - /home/stefano/projects/ndn-script/nlsr:/NLSR
     stdin_open: true
     tty: true
-    hostname: nodeb
+    hostname: nodeB
     networks:
       private-ndn-overlay:
         aliases:
@@ -49,12 +49,12 @@ services:
     environment:
       - NLSR_CONFIG=/NLSR/topologies/square/nodeC-nlsr.conf
       - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeC
-    # volumes:
-    #   - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
-    #   - /home/stefano/projects/ndn-script/nlsr:/NLSR
+    volumes:
+      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+      - /home/stefano/projects/ndn-script/nlsr:/NLSR
     stdin_open: true
     tty: true
-    hostname: nodec
+    hostname: nodeC
     networks:
       private-ndn-overlay:
         aliases:
@@ -71,12 +71,12 @@ services:
     environment:
       - NLSR_CONFIG=/NLSR/topologies/square/nodeD-nlsr.conf
       - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeD
-    # volumes:
-    #   - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
-    #   - /home/stefano/projects/ndn-script/nlsr:/NLSR
+    volumes:
+      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+      - /home/stefano/projects/ndn-script/nlsr:/NLSR
     stdin_open: true
     tty: true
-    hostname: noded
+    hostname: nodeD
     networks:
       private-ndn-overlay:
         aliases:

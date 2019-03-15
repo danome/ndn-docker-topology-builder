@@ -1,0 +1,5 @@
+#! /bin/bash
+
+for i in $(docker container ls -q); do
+    docker exec -id $i startup
+done

@@ -97,13 +97,14 @@ RUN apt autoremove \
 EXPOSE 6363/tcp
 EXPOSE 6363/udp
 
-ENV NFD_CONFIG=/usr/local/etc/ndn/nfd.conf
+ENV NFD_CONFIG=/nfd.conf
 
-COPY startup.sh /usr/local/bin/startup
 COPY tmas /usr/local/bin/tmas
 COPY tmls /usr/local/bin/tmls
 COPY node-rewriter.jar /
-COPY NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar /NdnGame/
-COPY nlsr/. /NLSR/.
+# COPY NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar /NdnGame/
+# COPY nlsr/. /NLSR/.
+COPY startup.sh /usr/local/bin/startup
+COPY nfd.conf /nfd.conf
 
 CMD startup > startup.log && /bin/bash

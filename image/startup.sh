@@ -1,6 +1,7 @@
 #! /bin/bash
 logfile="startup_ran.txt"
 touch $logfile
+mkdir /metrics/$HOSTNAME -p
 
 rewritten_nlsr_file=/nlsr.conf
 
@@ -9,7 +10,7 @@ declare -a default_nodenames=("a" "b" "c" "d" "e" "f" "g" "x")
 
 echo "Starting nfd"
 tmux new-session -s "nfd" -d
-tmux send-keys -t "nfd" "nfd" Enter
+tmux send-keys -t "nfd" "nfd -c $NFD_CONFIG 2>&1 | tee /metrics/$HOSTNAME/nfd.log" Enter
 
 # Give NFD and other nodes a second to start
 sleep 20s
@@ -19,7 +20,7 @@ tmux new-session -s "ping" -d
 tmux send-keys -t "ping" "ndnpingserver /com/stefanolupo/ndngame/0/$HOSTNAME" Enter 
 
 echo "Setting strategies"
-nfdc strategy set /com/stefanolupo/ndngame/0/discovery/broadcast /localhost/nfd/strategy/multicast/%FD%03
+# nfdc strategy set /com/stefanolupo/ndngame/0/discovery/broadcast /localhost/nfd/strategy/multicast/%FD%03
 
 echo "Adding default faces"
 for i in "${default_nodenames[@]}"

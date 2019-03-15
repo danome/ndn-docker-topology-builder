@@ -1,0 +1,21 @@
+  {nodeId}:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      {nlsrConfig}
+      {gameCommand}
+    volumes:
+      {gameJarVolume}
+      {nlsrVolume}
+    stdin_open: true
+    tty: true
+    hostname: {nodeName}
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - {nodeHostname}
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+    env_file:
+      - ../variables.env

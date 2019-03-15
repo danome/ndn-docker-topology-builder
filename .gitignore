@@ -6,3 +6,4 @@ psync-0.1.0
 nlsr-0.4.3
 
 ./nlsr/__pycache__
+./nlsr/.venv

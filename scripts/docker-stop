@@ -1,6 +1,11 @@
 #! /bin/bash
 
 for i in $(docker container ls -q); do
-    docker exec -i $i bash < ./kill-tmux.sh
+    docker exec -i $i bash <<EOF
+tmux kill-session -t game
+tmux kill-session -t ping
+tmux kill-session -t nlsr
+tmux kill-session -t nfd
+EOF
     docker cp ~/projects/ndn-script/image/startup.sh $i:/usr/local/bin/startup
 done

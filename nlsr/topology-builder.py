@@ -2,29 +2,11 @@ from nlsr_builder import NlsrBuilder
 from node import Node
 from neighbor import Neighbor
 
-# ips = {
-#     "A": "172.19.0.10",
-#     "B": "172.19.0.11",
-#     "C": "172.19.0.12",
-#     "D": "172.19.0.13",
-#     "E": "172.19.0.14",
-#     "F": "172.19.0.15",
-#     "G": "172.19.0.16",
-#     "X": "192.168.1.10"
-# }
-
-
-def buildNode(nodeName, router=False):
-    # if nodeName not in ips:
-    #     raise KeyError("{} is not in ips: {}".format(nodeName, ips))
-    hostname = "node" + nodeName.lower() + ".ndngame.com"
-    return Node(nodeName, hostname, router=router)
-
 def buildLinearTwoTopology():
     print("\n\nBuilding linear-two topology")
     # A <--10--> B 
-    nodeA = buildNode("A")
-    nodeB = buildNode("B")
+    nodeA = Node("A")
+    nodeB = Node("B")
 
     nodeA.addNeighbor(Neighbor(nodeB))
     nodeA.printNighbours()
@@ -47,12 +29,12 @@ def buildLinearThreeTopology():
                 X
     """
 
-    nodeA = buildNode("A")
-    nodeB = buildNode("B")
-    nodeC = buildNode("C")
+    nodeA = Node("A")
+    nodeB = Node("B")
+    nodeC = Node("C")
 
     # Adding my local machine to the mix
-    nodeX = buildNode("X")
+    nodeX = Node("X")
     nodeX.addNeighbor(Neighbor(nodeB))
     nodeX.printNighbours()
 
@@ -84,10 +66,10 @@ def buildSquareTopology():
         |            |
         D --- 10 --- C
     """
-    nodeA = buildNode("A")
-    nodeB = buildNode("B")
-    nodeC = buildNode("C")
-    nodeD = buildNode("D")
+    nodeA = Node("A")
+    nodeB = Node("B")
+    nodeC = Node("C")
+    nodeD = Node("D")
 
     nodeA.addNeighbor(Neighbor(nodeB))
     nodeA.addNeighbor(Neighbor(nodeD))
@@ -113,13 +95,13 @@ def buildSquareTopology():
 
 def buildTreeTopology():
     print("\n\nBuilding tree topology")
-    nodeA = buildNode("A")
-    nodeB = buildNode("B")
-    nodeC = buildNode("C")
-    nodeD = buildNode("D")
-    nodeE = buildNode("E", router=True)
-    nodeF = buildNode("F", router=True)
-    nodeG = buildNode("G", router=True)
+    nodeA = Node("A")
+    nodeB = Node("B")
+    nodeC = Node("C")
+    nodeD = Node("D")
+    nodeE = Node("E", router=True)
+    nodeF = Node("F", router=True)
+    nodeG = Node("G", router=True)
 
     # Leaf nodes have a single parent
     nodeA.addNeighbor(Neighbor(nodeE))
@@ -159,11 +141,11 @@ def buildTreeTopology():
 
 def buildFourChildTreeTopology():
     print("\n\nBuilding four-child-tree topology")
-    nodeA = buildNode("A")
-    nodeB = buildNode("B")
-    nodeC = buildNode("C")
-    nodeD = buildNode("D")
-    nodeE = buildNode("E", router=True)
+    nodeA = Node("A")
+    nodeB = Node("B")
+    nodeC = Node("C")
+    nodeD = Node("D")
+    nodeE = Node("E", router=True)
 
     # Add connection to parent
     nodeA.addNeighbor(Neighbor(nodeE))
@@ -195,18 +177,18 @@ def buildDumbbellTopology():
     print("\n\nBuilding dumbbell topology")
     
     # Left side
-    nodeA = buildNode("A")
-    nodeB = buildNode("B")
+    nodeA = Node("A")
+    nodeB = Node("B")
     
     # Right side
-    nodeC = buildNode("C")
-    nodeD = buildNode("D")
+    nodeC = Node("C")
+    nodeD = Node("D")
 
     # Left router
-    nodeE = buildNode("E", router=True)
+    nodeE = Node("E", router=True)
 
     # Right router
-    nodeF = buildNode("F", router=True)
+    nodeF = Node("F", router=True)
 
     # Each of left nodes are connected to E
     nodeA.addNeighbor(Neighbor(nodeE))

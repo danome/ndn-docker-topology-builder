@@ -1,9 +1,10 @@
 
 class Node:
 
-    def __init__(self, nodeId, nodeIp, router=False):
+    def __init__(self, nodeId: str, router=False):
         self.nodeId = nodeId
-        self.nodeIp = nodeIp
+        self.nodeName = "node" + nodeId
+        self.hostName = "node" + nodeId.lower() + ".ndngame.com"
         self.neighborList = []
         self.router = router
     
@@ -18,6 +19,6 @@ class Node:
         gameNodeFormat = "{}({})"
         routerFormat = "{}_r({})"
         if (self.router):
-            return routerFormat.format(self.nodeId, self.nodeIp)
+            return routerFormat.format(self.nodeId, self.hostName)
         
-        return gameNodeFormat.format(self.nodeId, self.nodeIp)
+        return gameNodeFormat.format(self.nodeId, self.hostName)

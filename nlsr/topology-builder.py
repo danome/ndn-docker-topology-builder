@@ -1,6 +1,13 @@
+from typing import List
+
 from nlsr_builder import NlsrBuilder
 from node import Node
 from neighbor import Neighbor
+from compose_builder import ComposeBuilder
+
+def printTopology(nodes: List[Node]):
+    for node in nodes:
+        node.printNighbours()
 
 def buildLinearTwoTopology():
     print("\n\nBuilding linear-two topology")
@@ -9,14 +16,14 @@ def buildLinearTwoTopology():
     nodeB = Node("B")
 
     nodeA.addNeighbor(Neighbor(nodeB))
-    nodeA.printNighbours()
 
     nodeB.addNeighbor(Neighbor(nodeA))
-    nodeB.printNighbours()
 
-    nlsr = NlsrBuilder("linear")
-    nlsr.buildNlsrFile(nodeA)
-    nlsr.buildNlsrFile(nodeB)
+    topologyName = "linear"
+    nodes = [nodeA, nodeB]
+    printTopology(nodes)
+    NlsrBuilder(topologyName).buildNlsrFiles(nodes)
+    ComposeBuilder(topologyName, nodes).buildComposeFile()
 
 
 def buildLinearThreeTopology():
@@ -36,24 +43,20 @@ def buildLinearThreeTopology():
     # Adding my local machine to the mix
     nodeX = Node("X")
     nodeX.addNeighbor(Neighbor(nodeB))
-    nodeX.printNighbours()
 
     nodeA.addNeighbor(Neighbor(nodeB))
-    nodeA.printNighbours()
 
     nodeB.addNeighbor(Neighbor(nodeA))
     nodeB.addNeighbor(Neighbor(nodeC))
     nodeB.addNeighbor(Neighbor(nodeX))
-    nodeB.printNighbours()
 
     nodeC.addNeighbor(Neighbor(nodeB))
-    nodeC.printNighbours()
 
-    nlsr = NlsrBuilder("linear-three")
-    nlsr.buildNlsrFile(nodeA)
-    nlsr.buildNlsrFile(nodeB)
-    nlsr.buildNlsrFile(nodeC)
-    nlsr.buildNlsrFile(nodeX)
+    topologyName = "linear-three"
+    nodes = [nodeA, nodeB, nodeC, nodeX]
+    printTopology(nodes)
+    NlsrBuilder(topologyName).buildNlsrFiles(nodes)
+    ComposeBuilder(topologyName, nodes).buildComposeFile()
 
 
 
@@ -73,25 +76,21 @@ def buildSquareTopology():
 
     nodeA.addNeighbor(Neighbor(nodeB))
     nodeA.addNeighbor(Neighbor(nodeD))
-    nodeA.printNighbours()
 
     nodeB.addNeighbor(Neighbor(nodeC))
     nodeB.addNeighbor(Neighbor(nodeA))
-    nodeB.printNighbours()
 
     nodeC.addNeighbor(Neighbor(nodeD))
     nodeC.addNeighbor(Neighbor(nodeB))
-    nodeC.printNighbours()
 
     nodeD.addNeighbor(Neighbor(nodeA))
     nodeD.addNeighbor(Neighbor(nodeC))
-    nodeD.printNighbours()
 
-    nlsr = NlsrBuilder("square")
-    nlsr.buildNlsrFile(nodeA)
-    nlsr.buildNlsrFile(nodeB)
-    nlsr.buildNlsrFile(nodeC)
-    nlsr.buildNlsrFile(nodeD)
+    topologyName = "square"
+    nodes = [nodeA, nodeB, nodeC, nodeD]
+    printTopology(nodes)
+    NlsrBuilder(topologyName).buildNlsrFiles(nodes)
+    ComposeBuilder(topologyName, nodes).buildComposeFile()
 
 def buildTreeTopology():
     print("\n\nBuilding tree topology")
@@ -121,22 +120,11 @@ def buildTreeTopology():
     nodeF.addNeighbor(Neighbor(nodeD))
     nodeF.addNeighbor(Neighbor(nodeG))
 
-    nodeA.printNighbours()
-    nodeB.printNighbours()
-    nodeC.printNighbours()
-    nodeD.printNighbours()
-    nodeE.printNighbours()
-    nodeF.printNighbours()
-    nodeG.printNighbours()
-
-    nlsr = NlsrBuilder("tree")
-    nlsr.buildNlsrFile(nodeA)
-    nlsr.buildNlsrFile(nodeB)
-    nlsr.buildNlsrFile(nodeC)
-    nlsr.buildNlsrFile(nodeD)
-    nlsr.buildNlsrFile(nodeE)
-    nlsr.buildNlsrFile(nodeF)
-    nlsr.buildNlsrFile(nodeG)
+    topologyName = "tree"
+    nodes = [nodeA, nodeB, nodeC, nodeD, nodeE, nodeF, nodeG]
+    printTopology(nodes)
+    NlsrBuilder(topologyName).buildNlsrFiles(nodes)
+    ComposeBuilder(topologyName, nodes).buildComposeFile()
 
 
 def buildFourChildTreeTopology():
@@ -159,18 +147,11 @@ def buildFourChildTreeTopology():
     nodeE.addNeighbor(Neighbor(nodeC))
     nodeE.addNeighbor(Neighbor(nodeD))
 
-    nodeA.printNighbours()
-    nodeB.printNighbours()
-    nodeC.printNighbours()
-    nodeD.printNighbours()
-    nodeE.printNighbours()
-
-    nlsr = NlsrBuilder("four-child-tree")
-    nlsr.buildNlsrFile(nodeA)
-    nlsr.buildNlsrFile(nodeB)
-    nlsr.buildNlsrFile(nodeC)
-    nlsr.buildNlsrFile(nodeD)
-    nlsr.buildNlsrFile(nodeE)
+    topologyName = "four-child-tree"
+    nodes = [nodeA, nodeB, nodeC, nodeD, nodeE]
+    printTopology(nodes)
+    NlsrBuilder(topologyName).buildNlsrFiles(nodes)
+    ComposeBuilder(topologyName, nodes).buildComposeFile()
 
 
 def buildDumbbellTopology():
@@ -208,20 +189,11 @@ def buildDumbbellTopology():
     nodeF.addNeighbor(Neighbor(nodeD))
     nodeF.addNeighbor(Neighbor(nodeE))
 
-    nodeA.printNighbours()
-    nodeB.printNighbours()
-    nodeC.printNighbours()
-    nodeD.printNighbours()
-    nodeE.printNighbours()
-    nodeF.printNighbours()
-
-    nlsr = NlsrBuilder("dumbbell")
-    nlsr.buildNlsrFile(nodeA)
-    nlsr.buildNlsrFile(nodeB)
-    nlsr.buildNlsrFile(nodeC)
-    nlsr.buildNlsrFile(nodeD)
-    nlsr.buildNlsrFile(nodeE)
-    nlsr.buildNlsrFile(nodeF)
+    topologyName = "dumbbell"
+    nodes = [nodeA, nodeB, nodeC, nodeD, nodeE, nodeF]
+    printTopology(nodes)
+    NlsrBuilder(topologyName).buildNlsrFiles(nodes)
+    ComposeBuilder(topologyName, nodes).buildComposeFile()
 
 
 

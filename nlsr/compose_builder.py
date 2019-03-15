@@ -43,7 +43,7 @@ class ServiceBuilder:
             gameJarVolume=gameJarVolume,
             nlsrVolume=nlsrVolume,
             nodeName=self.node.nodeName, 
-            nodeHostname=self.node.hostName
+            nodeHostname=self.node.hostname
         )
 
 if __name__ == "__main__":

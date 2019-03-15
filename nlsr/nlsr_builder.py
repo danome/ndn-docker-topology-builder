@@ -1,5 +1,8 @@
 import os
+from typing import List
+
 from neighbor import Neighbor
+from node import Node
 
 logdir = "/var/logs/nlsr"
 
@@ -13,7 +16,7 @@ nlsrOutputFormat="{name}-nlsr.conf"
 neighborFormat = \
 "neighbor  {{\n\
     name /com/stefanolupo/%C1.Router/router{nodeId}\n\
-    face-uri  udp4://{nodeIp}\n\
+    face-uri  udp4://{nodeHostname}\n\
     link-cost {linkCost}\n\
 }}\n\n"
 
@@ -32,11 +35,11 @@ advertisementsFormat = [
     "/{name}/projectiles/interact",
 ]
 
-def buildNeighbor(neighbor):
-    node = neighbor.node
-    return neighborFormat.format(nodeId=node.nodeId, nodeIp=node.nodeIp, linkCost=neighbor.linkCost)
+def buildNeighbor(neighbor: Neighbor):
+    node: Node = neighbor.node
+    return neighborFormat.format(nodeId=node.nodeId, nodeHostname=node.hostname, linkCost=neighbor.linkCost)
 
-def buildNeighbors(node):
+def buildNeighbors(node: Node):
     return "\n".join([buildNeighbor(neighbor) for neighbor in node.neighborList])
 
 def buildAdvertisement(lst, **kwargs):
@@ -51,7 +54,11 @@ class NlsrBuilder:
         self.maxFacesPerPrefix = maxFacesPerPrefix
         self.topologyName = topologyName
     
-    def buildNlsrFile(self, node):
+    def buildNlsrFiles(self, nodes: List[Node]):
+        for node in nodes:
+            self.buildNlsrFile(node)
+
+    def buildNlsrFile(self, node: Node):
         # Template needs:
         #   nodeId (for my router name)
         #   logdir

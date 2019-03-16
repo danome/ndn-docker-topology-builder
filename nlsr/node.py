@@ -1,3 +1,6 @@
+from typing import List
+
+from neighbor import Neighbor
 
 class Node:
 
@@ -5,17 +8,17 @@ class Node:
         self.nodeId = nodeId
         self.nodeName = "node" + nodeId
         self.hostname = "node" + nodeId.lower() + ".ndngame.com"
-        self.neighborList = []
+        self.neighborList: List[Neighbor] = []
         self.router = router
     
-    def addNeighbor(self, neighbor):
+    def addNeighbor(self, neighbor: Neighbor):
         self.neighborList.append(neighbor)
     
     def printNighbours(self):
         for neighbor in self.neighborList:
-            print("{} <-{}-> {}".format(self.asString(), neighbor.linkCost, neighbor.node.asString()))
+            print("{} <-{}-> {}".format(self.__str__(), neighbor.linkCost, str(neighbor.node)))
     
-    def asString(self):
+    def __str__(self):
         gameNodeFormat = "{}({})"
         routerFormat = "{}_r({})"
         if (self.router):

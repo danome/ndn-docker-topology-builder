@@ -1,4 +1,5 @@
 from typing import List
+from string import ascii_uppercase
 
 from nlsr_builder import NlsrBuilder
 from node import Node
@@ -8,6 +9,15 @@ from compose_builder import ComposeBuilder
 def printTopology(nodes: List[Node]):
     for node in nodes:
         node.printNighbours()
+
+def linkNodes(node1: Node, node2: Node):
+    node1.addNeighbor(Neighbor(node2))
+    node2.addNeighbor(Neighbor(node1))
+
+def chunks(l, n):
+    """Yield successive n-sized chunks from l."""
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
 
 def buildLinearTwoTopology():
     print("\n\nBuilding linear-two topology")
@@ -24,7 +34,6 @@ def buildLinearTwoTopology():
     printTopology(nodes)
     NlsrBuilder(topologyName).buildNlsrFiles(nodes)
     ComposeBuilder(topologyName, nodes).buildComposeFile()
-
 
 def buildLinearThreeTopology():
     print("\n\nBuilding linear-three topology")
@@ -195,7 +204,40 @@ def buildDumbbellTopology():
     NlsrBuilder(topologyName).buildNlsrFiles(nodes)
     ComposeBuilder(topologyName, nodes).buildComposeFile()
 
+def buildLan(nodes: List[Node], router: Node):
+    for node in nodes:
+        linkNodes(node, router)
 
+def buildScalabilityTestTopology():
+    # Game nodes are a through p and grouped in four
+    nodeIds = list(ascii_uppercase[:16])
+    nodes = [Node(node) for node in nodeIds]
+    chunkedNodes = list(chunks(nodes, 4))
+
+    # Routers are Q, R, S and T
+    routers = list(ascii_uppercase[16:20])
+    routers = [Node(router, router=True) for router in routers]
+
+    routerQ, routerR, routerS, routerT = routers
+    linkNodes(routerQ, routerR)
+    linkNodes(routerR, routerS)
+    linkNodes(routerS, routerT)
+    linkNodes(routerT, routerQ)
+
+    # Create router -> [gameNodes] tuple
+    zipped = list(zip(routers, chunkedNodes))
+    
+    # Link routers to their game nodes
+    for router, gameNodes in zipped:
+        for gameNode in gameNodes: linkNodes(router, gameNode)
+    
+    allNodes = nodes + routers
+    topologyName = "scalability"
+    printTopology(allNodes)
+    NlsrBuilder(topologyName).buildNlsrFiles(allNodes)
+    ComposeBuilder(topologyName, allNodes).buildComposeFile()
+
+    
 
 if __name__ == '__main__':
     buildLinearTwoTopology()
@@ -204,3 +246,5 @@ if __name__ == '__main__':
     buildTreeTopology()
     buildFourChildTreeTopology()
     buildDumbbellTopology()
+    buildScalabilityTestTopology()
+    

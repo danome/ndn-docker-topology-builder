@@ -1,0 +1,408 @@
+version: '3.3'
+
+services:
+  A:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeA-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeA
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeA
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodea.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  B:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeB-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeB
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeB
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodeb.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  C:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeC-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeC
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeC
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodec.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  D:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeD-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeD
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeD
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - noded.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  E:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeE-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeE
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeE
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodee.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  F:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeF-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeF
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeF
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodef.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  G:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeG-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeG
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeG
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodeg.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  H:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeH-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeH
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeH
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodeh.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  I:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeI-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeI
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeI
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodei.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  J:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeJ-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeJ
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeJ
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodej.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  K:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeK-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeK
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeK
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodek.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  L:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeL-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeL
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeL
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodel.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  M:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeM-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeM
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeM
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodem.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  NN:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeN-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeN
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeN
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - noden.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  O:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeO-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeO
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeO
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodeo.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  P:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeP-nlsr.conf
+      - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeP
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeP
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodep.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  Q:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeQ-nlsr.conf
+      
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeQ
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodeq.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  R:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeR-nlsr.conf
+      
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeR
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - noder.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  S:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeS-nlsr.conf
+      
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeS
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodes.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+  T:
+    image: stefanolupo/ndn:ndn-node
+    environment:
+      - NLSR_CONFIG=/NLSR/scalability/nodeT-nlsr.conf
+      
+      - METRICS_DIR=/metrics
+    # volumes
+#       - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
+#       - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    stdin_open: true
+    tty: true
+    hostname: nodeT
+    networks:
+      private-ndn-overlay:
+        aliases:
+          - nodet.ndngame.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+
+
+networks:
+  private-ndn-overlay:
+    driver: overlay

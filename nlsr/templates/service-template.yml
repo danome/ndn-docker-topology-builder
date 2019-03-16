@@ -3,6 +3,7 @@
     environment:
       {nlsrConfig}
       {gameCommand}
+      - METRICS_DIR=/metrics
     volumes:
       {gameJarVolume}
       {nlsrVolume}
@@ -17,5 +18,3 @@
       mode: replicated
       replicas: 1
       endpoint_mode: dnsrr
-    env_file:
-      - ../variables.env

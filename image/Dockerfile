@@ -102,8 +102,8 @@ ENV NFD_CONFIG=/nfd.conf
 COPY tmas /usr/local/bin/tmas
 COPY tmls /usr/local/bin/tmls
 COPY node-rewriter.jar /
-# COPY NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar /NdnGame/
-# COPY nlsr/. /NLSR/.
+COPY NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar /NdnGame/
+COPY topologies/. /NLSR/.
 COPY startup.sh /usr/local/bin/startup
 COPY nfd.conf /nfd.conf
 

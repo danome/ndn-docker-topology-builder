@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.4'
 
 services:
   A:
@@ -21,6 +21,12 @@ services:
       mode: replicated
       replicas: 1
       endpoint_mode: dnsrr
+    healthcheck:
+      test: docker-healthcheck
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
   B:
     image: stefanolupo/ndn:ndn-node
     environment:
@@ -41,6 +47,12 @@ services:
       mode: replicated
       replicas: 1
       endpoint_mode: dnsrr
+    healthcheck:
+      test: docker-healthcheck
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
   C:
     image: stefanolupo/ndn:ndn-node
     environment:
@@ -61,6 +73,12 @@ services:
       mode: replicated
       replicas: 1
       endpoint_mode: dnsrr
+    healthcheck:
+      test: docker-healthcheck
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
   D:
     image: stefanolupo/ndn:ndn-node
     environment:
@@ -81,6 +99,12 @@ services:
       mode: replicated
       replicas: 1
       endpoint_mode: dnsrr
+    healthcheck:
+      test: docker-healthcheck
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
   E:
     image: stefanolupo/ndn:ndn-node
     environment:
@@ -101,6 +125,12 @@ services:
       mode: replicated
       replicas: 1
       endpoint_mode: dnsrr
+    healthcheck:
+      test: docker-healthcheck
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
 
 
 networks:

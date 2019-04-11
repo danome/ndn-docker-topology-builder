@@ -3,10 +3,16 @@ from typing import List
 
 from node import Node
 
+AUTOMATION_TYPE = "wsp"
+
 COMPOSE_TEMPLATE = "templates/compose-template.yml"
 SERVICE_TEMPLATE = "templates/service-template.yml"
 COMPOSITIONS_DIR = "compositions"
 COMPOSE_FILE_NAME = "docker-compose.yml"
+
+NO_VOLUME = ["scalability", "linear"]
+# NO_VOLUME = ["scalability"]
+# NO_VOLUME = [""]
 
 GAME_JAR_DIR = "/home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs"
 GAME_JAR_TARGET = "/NdnGame"
@@ -16,7 +22,10 @@ NLSR_DIR = "/home/stefano/projects/ndn-script/nlsr/topologies"
 NLSR_TARGET = "/NLSR"
 nlsrVolume = "- {}:{}".format(NLSR_DIR, NLSR_TARGET)
 
-GAME_COMMAND_FORMAT = "- GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n {nodeName}"
+VOLUMES_FORMAT = "volumes:\n      {gameJarVolume}\n      {nlsrVolume}"
+volumes = VOLUMES_FORMAT.format(gameJarVolume=gameJarVolume, nlsrVolume=nlsrVolume)
+
+GAME_COMMAND_FORMAT = "- GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a " + AUTOMATION_TYPE + " -hl -n {nodeName}"
 NLSR_CONFIG_FORMAT = "- NLSR_CONFIG=" + NLSR_TARGET + "/{topology}/{nodeName}-nlsr.conf"
 
 with open(COMPOSE_TEMPLATE) as f: 
@@ -41,6 +50,7 @@ class ComposeBuilder:
 class ServiceBuilder:
     def __init__(self, topology: str, node: Node):
         self.node = node
+        self.topology = topology
         self.nlsrConfig = NLSR_CONFIG_FORMAT.format(topology=topology, nodeName=node.nodeName)
         self.gameCommand = "" if node.router else GAME_COMMAND_FORMAT.format(nodeName=node.nodeName)
     
@@ -49,8 +59,7 @@ class ServiceBuilder:
             nodeId=self.node.nodeId, 
             nlsrConfig=self.nlsrConfig,
             gameCommand=self.gameCommand,
-            gameJarVolume=gameJarVolume,
-            nlsrVolume=nlsrVolume,
+            volumes="" if self.topology in NO_VOLUME else volumes,
             nodeName=self.node.nodeName, 
             nodeHostname=self.node.hostname
         )

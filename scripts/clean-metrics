@@ -1,0 +1,11 @@
+#! /bin/bash
+
+declare -a awsNums=(1 2 3 4 5 6 7 8 9 10)
+
+for i in "${awsNums[@]}"
+do
+    command="rm -rf ~/metrics/*;mkdir ~/metrics"
+    node="ndnrh$i"
+    echo "Cleaning metrics from $node with $command"
+    ssh ndnrh$i $command
+done

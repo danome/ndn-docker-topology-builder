@@ -102,8 +102,14 @@ ENV NFD_CONFIG=/nfd.conf
 COPY tmas /usr/local/bin/tmas
 COPY tmls /usr/local/bin/tmls
 COPY node-rewriter.jar /
+
+ARG DUMMY3=unknown
 COPY NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar /NdnGame/
 COPY topologies/. /NLSR/.
+
+COPY docker-healthcheck /usr/local/bin/docker-healthcheck
+ARG DUMMY=unknown
+ARG DUMMY2=DUMMY
 COPY startup.sh /usr/local/bin/startup
 COPY nfd.conf /nfd.conf
 

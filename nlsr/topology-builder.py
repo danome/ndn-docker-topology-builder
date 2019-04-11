@@ -83,17 +83,10 @@ def buildSquareTopology():
     nodeC = Node("C")
     nodeD = Node("D")
 
-    nodeA.addNeighbor(Neighbor(nodeB))
-    nodeA.addNeighbor(Neighbor(nodeD))
-
-    nodeB.addNeighbor(Neighbor(nodeC))
-    nodeB.addNeighbor(Neighbor(nodeA))
-
-    nodeC.addNeighbor(Neighbor(nodeD))
-    nodeC.addNeighbor(Neighbor(nodeB))
-
-    nodeD.addNeighbor(Neighbor(nodeA))
-    nodeD.addNeighbor(Neighbor(nodeC))
+    linkNodes(nodeA, nodeB)
+    linkNodes(nodeB, nodeC)
+    linkNodes(nodeC, nodeD)
+    linkNodes(nodeD, nodeA)
 
     topologyName = "square"
     nodes = [nodeA, nodeB, nodeC, nodeD]
@@ -112,22 +105,14 @@ def buildTreeTopology():
     nodeG = Node("G", router=True)
 
     # Leaf nodes have a single parent
-    nodeA.addNeighbor(Neighbor(nodeE))
-    nodeB.addNeighbor(Neighbor(nodeE))
-    nodeC.addNeighbor(Neighbor(nodeF))
-    nodeD.addNeighbor(Neighbor(nodeF))
+    linkNodes(nodeA, nodeE)
+    linkNodes(nodeB, nodeE)
+    linkNodes(nodeC, nodeF)
+    linkNodes(nodeD, nodeF)
 
     # Root node has two connections
-    nodeG.addNeighbor(Neighbor(nodeE))
-    nodeG.addNeighbor(Neighbor(nodeF))
-
-    # Intermediate Nodes have two children and one paerent
-    nodeE.addNeighbor(Neighbor(nodeA))
-    nodeE.addNeighbor(Neighbor(nodeB))
-    nodeE.addNeighbor(Neighbor(nodeG))
-    nodeF.addNeighbor(Neighbor(nodeC))
-    nodeF.addNeighbor(Neighbor(nodeD))
-    nodeF.addNeighbor(Neighbor(nodeG))
+    linkNodes(nodeG, nodeE)
+    linkNodes(nodeG, nodeF)
 
     topologyName = "tree"
     nodes = [nodeA, nodeB, nodeC, nodeD, nodeE, nodeF, nodeG]
@@ -212,6 +197,8 @@ def buildScalabilityTestTopology():
     # Game nodes are a through p and grouped in four
     nodeIds = list(ascii_uppercase[:16])
     nodes = [Node(node) for node in nodeIds]
+    # Docker compose files don't let you name services n for some reason..
+    nodes[13] = Node("NN")
     chunkedNodes = list(chunks(nodes, 4))
 
     # Routers are Q, R, S and T

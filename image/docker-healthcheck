@@ -1,0 +1,11 @@
+#! /bin/bash
+
+if [[ -n $GAME ]]; then
+    res=$(grep -i exception $METRICS_DIR/$HOSTNAME/java.log;)
+    if [[ -z $res  ]]; then
+        exit 0
+    else
+        echo $res
+        exit 1
+    fi
+fi

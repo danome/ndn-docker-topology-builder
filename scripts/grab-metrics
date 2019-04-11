@@ -1,12 +1,18 @@
 #! /bin/bash
 
+declare -a awsNums=(1 2 3 4 5 6 7 8 9 10)
+# declare -a awsNums=(6)
+
 prefix=$1
 outdir=$2
-use_machine=$3
+fetchFrom=$3
+
+awsMetricsDir="~/metrics/$prefix"
 
 function get_for_containers() {
     docker container ls -q | while read -r container ; do
-        echo "Getting from $container"
+        echo "Getting from $container into $outdir"
+        mkdir -p $outdir
         docker cp $container:/metrics/. $outdir
     done
 }
@@ -20,11 +26,35 @@ function get_for_machines() {
     done
 }
 
+function get_from_aws() {
+    for i in "${awsNums[@]}"
+    do
+        command="grab-metrics $prefix $awsMetricsDir"
+        node="ndnrh$i"
+        echo "Getting from $node with $command"
+        ssh ndnrh$i $command
+        echo ""
+    done
+    echo "Finished grabbing metrics, starting to fetch metrics"
+    echo ""
+    echo ""
+    for j in "${awsNums[@]}"
+    do
+        node="ndnrh$j"
+        echo "Pulling from $node:$awsMetricsDir to $outdir"
+        scp -r $node:$awsMetricsDir $outdir
+        echo "Finished with $node"
+        echo ""
+    done
+}
 
-if [ -n "$use_machine" ]; then
-    echo "Getting for machines"
+if [ "$fetchFrom" == "aws" ]; then
+    echo "Getting from AWS"
+    get_from_aws
+elif [ "$fetchFrom" == "machine" ]; then
+    echo "Getting from docker machines"
     get_for_machines
-else
-    echo "Getting for containers"
+else 
+    echo "Getting from local containers containers"
     get_for_containers
 fi

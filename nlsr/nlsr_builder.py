@@ -20,9 +20,9 @@ neighborFormat = \
     link-cost {linkCost}\n\
 }}\n\n"
 
+pingFormat = "/{name}/ping"
 
 advertisementsFormat = [
-    "/{name}/ping",
     "/discovery/broadcast",
     "/discovery/{name}",
     "/config/broadcast",
@@ -69,9 +69,9 @@ class NlsrBuilder:
         neighbors = buildNeighbors(node)
         nodeName = nameFormat.format(nodeId=node.nodeId)
 
-        advertisements = ""
+        advertisements = "prefix " + pingFormat.format(name=nodeName)
         if node.router is False:
-            advertisements = buildAdvertisements(nodeName)
+            advertisements = advertisements + buildAdvertisements(nodeName)
 
         with open(nlsrTemplateFile) as templateFile:
             template = templateFile.read()

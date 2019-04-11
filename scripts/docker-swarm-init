@@ -1,0 +1,24 @@
+#! /bin/bash
+declare -a awsNums=(1 2 3 4 5 6 7)
+
+echo "Abandoning current swarm"
+docker swarm leave -f
+
+echo "Creating a new swarm"
+docker swarm init
+
+echo "Updating self to drain"
+docker node update stefano-desktop --availability drain
+
+swarmToken=$(docker swarm join-token worker  -q)
+swarmCommand="docker swarm join --token $swarmToken 86.43.98.198:2377"
+command="docker swarm leave --force; $swarmCommand"
+echo "Using command: $command"
+
+ for i in "${awsNums[@]}"
+    do
+        node="ndnrh$i"
+        echo "Joining on $node with"
+        ssh ndnrh$i $command
+        echo "Finished\n\n"
+    done

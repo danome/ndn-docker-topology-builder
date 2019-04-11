@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.4'
 
 services:
   A:
@@ -7,9 +7,7 @@ services:
       - NLSR_CONFIG=/NLSR/linear/nodeA-nlsr.conf
       - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeA
       - METRICS_DIR=/metrics
-    volumes:
-      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
-      - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    
     stdin_open: true
     tty: true
     hostname: nodeA
@@ -21,15 +19,19 @@ services:
       mode: replicated
       replicas: 1
       endpoint_mode: dnsrr
+    healthcheck:
+      test: docker-healthcheck
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
   B:
     image: stefanolupo/ndn:ndn-node
     environment:
       - NLSR_CONFIG=/NLSR/linear/nodeB-nlsr.conf
       - GAME=java -jar /NdnGame/NdnGameLibGdxDesktop-1.0-SNAPSHOT.jar -a wsp -hl -n nodeB
       - METRICS_DIR=/metrics
-    volumes:
-      - /home/stefano/projects/NdnGame/NdnGameLibGdxDesktop/build/libs:/NdnGame
-      - /home/stefano/projects/ndn-script/nlsr/topologies:/NLSR
+    
     stdin_open: true
     tty: true
     hostname: nodeB
@@ -41,6 +43,12 @@ services:
       mode: replicated
       replicas: 1
       endpoint_mode: dnsrr
+    healthcheck:
+      test: docker-healthcheck
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
 
 
 networks:

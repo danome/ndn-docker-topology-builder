@@ -4,9 +4,7 @@
       {nlsrConfig}
       {gameCommand}
       - METRICS_DIR=/metrics
-    volumes:
-      {gameJarVolume}
-      {nlsrVolume}
+    {volumes}
     stdin_open: true
     tty: true
     hostname: {nodeName}
@@ -18,3 +16,9 @@
       mode: replicated
       replicas: 1
       endpoint_mode: dnsrr
+    healthcheck:
+      test: docker-healthcheck
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
